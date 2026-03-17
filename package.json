@@ -5,6 +5,10 @@
   "version": "0.0.1",
   "publisher": "xkos",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xkos/maestro-vsx.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -42,6 +46,11 @@
         "title": "Maestro: Initialize Project"
       },
       {
+        "command": "maestro.openAcceptanceDesk",
+        "title": "Maestro: Open Acceptance Desk",
+        "icon": "$(checklist)"
+      },
+      {
         "command": "maestro.refresh",
         "title": "Maestro: Refresh",
         "icon": "$(refresh)"
@@ -49,6 +58,11 @@
     ],
     "menus": {
       "view/title": [
+        {
+          "command": "maestro.openAcceptanceDesk",
+          "when": "view == maestro-tasks",
+          "group": "navigation"
+        },
         {
           "command": "maestro.refresh",
           "when": "view == maestro-docs || view == maestro-tasks",
@@ -58,7 +72,7 @@
     }
   },
   "scripts": {
-    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node && esbuild src/webview/index.tsx --bundle --outfile=dist/webview.js --format=iife --platform=browser",
     "watch": "pnpm run compile -- --watch",
     "lint": "eslint src/",
     "test": "vitest --run"
@@ -69,6 +83,10 @@
     "@vscode/vsce": "^3.2.2",
     "esbuild": "^0.20.0",
     "eslint": "^8.56.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "typescript": "^5.3.0",
     "vitest": "^1.2.0"
   },

@@ -30,11 +30,11 @@ export async function parseTaskFile(uri: vscode.Uri): Promise<TaskFile> {
   const tasks: TaskItem[] = [];
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    // 匹配 "- [ ] T1: 描述" 或 "- [x] T1: 描述"
-    const match = line.match(/^- \[([ x])\] (T\d+): (.+)$/);
+    // 匹配 "- [ ] (可选ID:) 描述" 或 "- [x] 描述"
+    const match = line.match(/^\s*- \[([ x])\]\s+(?:([A-Za-z0-9-]+):\s+)?(.+)$/);
     if (match) {
       const completed = match[1] === 'x';
-      const id = match[2];
+      const id = match[2] || `C-${i}`; // 如果没有 ID 就生成个临时的，方便列表渲染
       const description = match[3];
 
       // 查找下一行的验证标准

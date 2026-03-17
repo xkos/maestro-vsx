@@ -8,6 +8,7 @@ import * as vscode from 'vscode';
 import { DocTreeProvider } from './providers/docTreeProvider';
 import { TaskTreeProvider } from './providers/taskTreeProvider';
 import { bootstrapProject } from './core/projectBootstrap';
+import { MaestroPanel } from './panels/MaestroPanel';
 
 export function activate(context: vscode.ExtensionContext) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -70,9 +71,13 @@ export function activate(context: vscode.ExtensionContext) {
     taskTreeProvider.refresh();
   });
 
+  const openDeskCmd = vscode.commands.registerCommand('maestro.openAcceptanceDesk', () => {
+    MaestroPanel.createOrShow(context.extensionUri);
+  });
+
   // --- 推入 subscriptions ---
 
-  context.subscriptions.push(docTreeView, taskTreeView, initCmd, refreshCmd);
+  context.subscriptions.push(docTreeView, taskTreeView, initCmd, refreshCmd, openDeskCmd);
 }
 
 export function deactivate() {}

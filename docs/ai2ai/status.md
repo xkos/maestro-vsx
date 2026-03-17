@@ -11,8 +11,8 @@
 
 ## 当前迭代
 
-- 上一迭代：[001-skeleton](tasks/001-skeleton.md) ✅ 已关闭（8/8 任务完成）
-- 当前活跃：无（待规划迭代 002：文档导航增强 或 上下文生成器）
+- 上一迭代：[002-acceptance-desk](tasks/002-acceptance-desk.md) ✅ 已关闭（6/6 任务完成）
+- 当前活跃：无（待规划迭代 003：上下文生成器 或 验收失败反馈工作流）
 
 ---
 
@@ -27,7 +27,8 @@
 | TaskTreeProvider | ✅ 可用 | 解析 task 文件，展示任务列表和状态，支持点击跳转 |
 | projectBootstrap | ✅ 可用 | 初始化文档目录和骨架文件 |
 | docScanner | ✅ 可用 | 扫描文档目录，按类型分组 |
-| markdownParser | ✅ 可用 | 解析 task 文件提取任务列表 |
+| markdownParser | ✅ 可用 | 增强了解析任务 `[ ]` 的能力，配合 writer 支持改写 |
+| 验收工作台 Webview | ✅ 可用 | 引入 React 并提供沉浸式从 UI 到 Markdown 的反向打勾能力 |
 | contextBuilder | ❌ 未开始 | 上下文组装 |
 | 状态仪表盘 | ❌ 未开始 | status.md 可视化 |
 
@@ -38,7 +39,8 @@
 - 插件激活 → TreeView 注册 → 文档扫描 → 树展示：✅ 联通
 - 插件激活 → TreeView 注册 → Task 解析 → 任务列表展示：✅ 联通
 - 命令面板 → 初始化命令 → 创建文档目录：✅ 联通
-- 面板切换 → onDidChangeVisibility → 自动刷新：✅ 联通（待人工验证）
+- 面板切换 → onDidChangeVisibility → 自动刷新：✅ 联通
+- Webview 动作 → IPC 响应 → 文件写回 → Watcher重绘：✅ 联通
 
 ---
 

@@ -34,3 +34,16 @@
 - 日期：2026-03-12
 - 决策：MVP 阶段全部使用 VS Code 原生 TreeView，不引入 React/Webview。仅当需要仪表盘等复杂可视化时才引入。
 - 原因：TreeView 足以展示文档树和任务列表，原生体验好，零额外构建步骤，开发快。
+
+### D004: 引入 React 与 esbuild 构建 Webview
+- 日期：2026-03-17
+- 决策：在插件端使用 esbuild 多入口，将 React 及其依赖打包成独立浏览器端 `webview.js`。引入 Webview 面板支持复杂交互。
+- 原因：原生 JS 拼接复杂交互页面（如交互式 Checkbox 数据流联动）可维护性极差。
+
+### L001: Webview 的 retainContextWhenHidden 会导致数据死锁
+- 日期：2026-03-17
+- 避坑：不依赖 Webview 宿主的强制驻留（该方案容易使 React 在隐藏期间错失数据，导致重新渲染为“暂无数据”）。改用每次 Tab 重新聚焦时，React 挂载并主动发出 `READY` 通信信号来强制同步最新后端层 JSON 数据的单向数据流。
+
+### L002: vsce 打包对 @types peer 依赖过度审查报错
+- 日期：2026-03-17
+- 避坑：由于插件构建阶段使用的是 `esbuild --bundle`，运行时根本不需要外置 `node_modules`。因此面对严苛的 `@types` 等 peer dependency 缺失报错时，无需处理包问题，直接使用 `vsce package --no-dependencies` 指令极速打包。
