@@ -1,0 +1,94 @@
+{
+  "name": "maestro",
+  "displayName": "Maestro",
+  "description": "AI Coding 时代的文档中心开发指挥台",
+  "version": "0.0.1",
+  "publisher": "xkos",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xkos/maestro-vsx.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "resources/maestro-icon.png",
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "maestro",
+          "title": "Maestro",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "views": {
+      "maestro": [
+        {
+          "id": "maestro-docs",
+          "name": "Docs"
+        },
+        {
+          "id": "maestro-tasks",
+          "name": "Tasks"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "maestro.initializeProject",
+        "title": "Maestro: Initialize Project"
+      },
+      {
+        "command": "maestro.openAcceptanceDesk",
+        "title": "Maestro: Open Acceptance Desk",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "maestro.refresh",
+        "title": "Maestro: Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "maestro.openAcceptanceDesk",
+          "when": "view == maestro-tasks",
+          "group": "navigation"
+        },
+        {
+          "command": "maestro.refresh",
+          "when": "view == maestro-docs || view == maestro-tasks",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node && esbuild src/webview/index.tsx --bundle --outfile=dist/webview.js --format=iife --platform=browser",
+    "watch": "pnpm run compile -- --watch",
+    "lint": "eslint src/",
+    "test": "vitest --run"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+}

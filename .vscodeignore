@@ -1,0 +1,12 @@
+node_modules/
+.pnpm-store/
+src/
+docs/
+.vscode/
+.cursor/
+*.ts
+!dist/**
+tsconfig.json
+esbuild.config.mjs
+pnpm-lock.yaml
+.gitignore
